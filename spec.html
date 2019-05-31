@@ -583,7 +583,7 @@ contributors: Myles Borins, Guy Bedford, Daniel Ehrenberg
           1. Assert: _module_.[[AsyncParentModules]] is an empty List.
         1. If _module_.[[Status]] is `"evaluating-async"`, then
           1. Set _module_.[[Status]] to `"evaluated"`.
-        1. Set _module_.[[EvaluationError]] to ThrowCompletion(_error_).
+          1. Set _module_.[[EvaluationError]] to ThrowCompletion(_error_).
         1. For each Module _m_ of _module_.[[AsyncParentModules]], do
           1. If _module_.[[DFSIndex]] is not equal to _module_.[[DFSAncestorIndex]], then
             1. Assert: _m_.[[DFSAncestorIndex]] is equal to _module_.[[DFSAncestorIndex]].
