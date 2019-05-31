@@ -474,11 +474,15 @@ contributors: Myles Borins, Guy Bedford, Daniel Ehrenberg
           1. If _requiredModule_ is a Cyclic Module Record, then
             1. Assert: _requiredModule_.[[Status]] is either `"evaluating"`<ins>, `"evaluating-async"`</ins> or `"evaluated"`.
             1. Assert: _requiredModule_.[[Status]] is `"evaluating"` if and only if _requiredModule_ is in _stack_.
+            1. <ins>Let _requiredModuleAsyncPending_ be *false*.</ins>
             1. If _requiredModule_.[[Status]] is `"evaluating"`, then
+              1. <ins>If _requiredModule_.[[PendingAsyncDependencies]] is greater than 0, or _requiredModule_.[[Async]] is *true*, then</ins>
+                1. <ins>Set _requiredModuleAsyncPending_ to *true*.</ins>
               1. Set _module_.[[DFSAncestorIndex]] to min(_module_.[[DFSAncestorIndex]], _requiredModule_.[[DFSAncestorIndex]]).
             1. <ins>Otherwise, set _requiredModule_ to GetCycleRoot(_requiredModule_).</ins>
             1. <ins>If _requiredModule_.[[EvaluationError]] is not *undefined*, return _module_.[[EvaluationError]].</ins>
-            1. <ins>If _requiredModule_.[[Status]] is `"evaluating-async"`, then</ins>
+            1. <ins>If _requiredModule_.[[Status]] is `"evaluating-async", set _requiredModuleAsyncPending_ to *true*.</ins>
+            1. <ins>If _requiredModuleAsyncPending_ is *true*, then</ins>
               1. <ins>Set _module_.[[PendingAsyncDependencies]] to _module_.[[PendingAsyncDependencies]] + 1.</ins>
               1. <ins>Append _module_ to _requiredModule_.[[AsyncParentModules]].</ins>
         1. <del>Perform ? _module_.ExecuteModule().</del>
